@@ -1,4 +1,6 @@
 vim.g.mapleader = " "
+vim.g.python3_host_prog = "~/.vimenv/bin/python"
+vim.g.python2_host_prog = "/usr/local/solido/virtualenvs/9.2/bin/python"
 
 vim.opt.nu = true
 vim.g.mapleader = " "

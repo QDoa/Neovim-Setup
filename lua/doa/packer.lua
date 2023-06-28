@@ -57,13 +57,10 @@ return require('packer').startup(function(use)
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
     use('lewis6991/gitsigns.nvim')
-    use('mfussenegger/nvim-dap')
-    use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
-    use('mfussenegger/nvim-dap-python')
+    use('puremourning/vimspector')
 
     use {
         "williamboman/mason.nvim",
-        "jay-babu/mason-nvim-dap.nvim",
     }
     use {
         "windwp/nvim-autopairs",
@@ -72,4 +69,5 @@ return require('packer').startup(function(use)
     use {
         'numToStr/Comment.nvim',
     }
+    use("lukas-reineke/indent-blankline.nvim")
 end)
