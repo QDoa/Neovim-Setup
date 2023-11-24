@@ -15,9 +15,9 @@ return require('packer').startup(function(use)
     use({
         'rose-pine/neovim',
         as = 'rose-pine',
-        config = function()
-            vim.cmd('colorscheme rose-pine')
-        end
+    --     config = function()
+    --         vim.cmd('colorscheme rose-pine')
+    --     end
     })
 
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
@@ -57,9 +57,6 @@ return require('packer').startup(function(use)
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
     use('lewis6991/gitsigns.nvim')
-    use('mfussenegger/nvim-dap')
-    use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
-    use('mfussenegger/nvim-dap-python')
 
     use {
         "williamboman/mason.nvim",
@@ -72,4 +69,29 @@ return require('packer').startup(function(use)
     use {
         'numToStr/Comment.nvim',
     }
+    use("lukas-reineke/indent-blankline.nvim")
+    use('nvim-treesitter/nvim-treesitter-context')
+
+    use('puremourning/vimspector')
+
+    use {
+        "nvim-neorg/neorg",
+        config = function()
+            require('neorg').setup {
+                load = {
+                    ["core.defaults"] = {}, -- Loads default behaviour
+                    ["core.concealer"] = {}, -- Adds pretty icons to your documents
+                    ["core.dirman"] = { -- Manages Neorg workspaces
+                    config = {
+                        workspaces = {
+                            notes = "~/notes",
+                        },
+                    },
+                },
+            },
+        }
+    end,
+    run = ":Neorg sync-parsers",
+    requires = "nvim-lua/plenary.nvim",
+}
 end)
