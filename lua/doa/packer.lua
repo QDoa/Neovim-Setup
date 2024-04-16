@@ -8,17 +8,11 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.1',
+        'nvim-telescope/telescope.nvim', tag = '0.1.5',
         -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
-    use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
-    --     config = function()
-    --         vim.cmd('colorscheme rose-pine')
-    --     end
-    })
+    use { "catppuccin/nvim", as = "catppuccin" }
 
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use('nvim-treesitter/playground')
@@ -74,24 +68,31 @@ return require('packer').startup(function(use)
 
     use('puremourning/vimspector')
 
-    use {
-        "nvim-neorg/neorg",
-        config = function()
-            require('neorg').setup {
-                load = {
-                    ["core.defaults"] = {}, -- Loads default behaviour
-                    ["core.concealer"] = {}, -- Adds pretty icons to your documents
-                    ["core.dirman"] = { -- Manages Neorg workspaces
-                    config = {
-                        workspaces = {
-                            notes = "~/notes",
-                        },
-                    },
-                },
-            },
-        }
-    end,
-    run = ":Neorg sync-parsers",
-    requires = "nvim-lua/plenary.nvim",
-}
+    -- use {
+    --     "nvim-neorg/neorg",
+    --     config = function()
+    --         require('neorg').setup {
+    --             load = {
+    --                 ["core.defaults"] = {}, -- Loads default behaviour
+    --                 ["core.concealer"] = {}, -- Adds pretty icons to your documents
+    --                 ["core.qol.toc"] = {},
+    --                 ["core.completion"] = {
+    --                     config = {
+    --                         engine = "nvim-cmp",
+    --                     },
+    --                 }, -- A wrapper to interface with several different completion
+    --                 ["core.dirman"] = { -- Manages Neorg workspaces
+    --                 config = {
+    --                     workspaces = {
+    --                         notes = "~/notes",
+    --                         project = "~/notes/project"
+    --                     },
+    --                 },
+    --             },
+    --         },
+    --     }end,
+    --     run = ":Neorg sync-parsers",
+    --     requires = "nvim-lua/plenary.nvim",
+    -- }
+    use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
 end)

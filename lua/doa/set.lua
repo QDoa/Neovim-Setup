@@ -1,11 +1,14 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
+vim.g.python3_host_prog = '/usr/bin/python3.10'
+vim.g.python_host_prog = '/usr/bin/python3.10'
 
 -- disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 vim.opt.nu = true
-vim.g.mapleader = " "
 vim.opt.relativenumber = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
