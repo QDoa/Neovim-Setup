@@ -1,6 +1,6 @@
 vim.g.mapleader = " "
 vim.g.python3_host_prog = "~/.vimenv/bin/python"
-vim.g.python2_host_prog = "/usr/local/solido/virtualenvs/9.2/bin/python"
+vim.g.python2_host_prog = "/usr/local/solido/virtualenvs/10.0.1/bin/python"
 
 vim.opt.nu = true
 vim.g.mapleader = " "
@@ -24,7 +24,7 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 8
 
 vim.opt.updatetime = 50
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "120"
 
 function map(mode, shortcut, command)
   vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
@@ -43,3 +43,4 @@ nmap("<C-K>", "<C-W><C-K>")
 nmap("<C-L>", "<C-W><C-L>")
 nmap("<C-H>", "<C-W><C-H>")
 
+vim.cmd("set clipboard+=unnamedplus")
