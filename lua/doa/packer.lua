@@ -40,6 +40,8 @@ return require('packer').startup(function(use)
         {'L3MON4D3/LuaSnip'},     -- Required
         }
     }
+    use {'mfussenegger/nvim-lint'}
+    use {'mhartington/formatter.nvim'}
     use('preservim/tagbar')
     use {
         'nvim-tree/nvim-tree.lua',
@@ -105,4 +107,26 @@ return require('packer').startup(function(use)
     --     requires = "nvim-lua/plenary.nvim",
     -- }
     use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+
+
+    -- TODO's
+    use {
+        'folke/trouble.nvim',
+        requires = 'nvim-tree/nvim-web-devicons',
+        config = function ()
+            require("trouble").setup {
+
+            }
+        end
+    }
+
+    use {
+        'folke/todo-comments.nvim',
+        requires = 'nvim-lua/plenary.nvim',
+        config = function ()
+            require("todo-comments").setup {
+
+            }
+        end
+    }
 end)
