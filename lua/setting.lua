@@ -1,12 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-vim.g.python3_host_prog = '/usr/bin/python3.10'
-vim.g.python_host_prog = '/usr/bin/python3.10'
-
--- disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.python3_host_prog = '/usr/bin/python3.10'
+-- vim.g.python_host_prog = '/usr/bin/python3.10'
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -48,3 +44,6 @@ nmap("<C-K>", "<C-W><C-K>")
 nmap("<C-L>", "<C-W><C-L>")
 nmap("<C-H>", "<C-W><C-H>")
 
+vim.cmd("set clipboard+=unnamedplus")
+
+-- nmap("<leader>gs", vim.cmd.git)
