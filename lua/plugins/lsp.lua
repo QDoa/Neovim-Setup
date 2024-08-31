@@ -46,6 +46,15 @@ return {
                         require('luasnip').lsp_expand(args.body)
                     end,
                 },
+                source = cmp.config.sources({
+                    { name = "nvim_lsp" },
+                    { name = "neorg" },
+                    { name = "path" },
+                    { name = "nvim_lua" },
+                    { name = "calc" },
+                    { name = "buffer" },
+                    { name = "emoji" },
+                })
             })
         end
     },
@@ -72,7 +81,7 @@ return {
             end)
 
             require('mason-lspconfig').setup({
-                ensure_installed = {'pyright', 'ruff_lsp', 'lua_ls'},
+                ensure_installed = {'lua_ls', 'pyright', 'ruff_lsp', 'jsonls'},
                 handlers = {
                     -- this first function is the "default handler"
                     -- it applies to every language server without a "custom handler"
@@ -89,9 +98,14 @@ return {
                                 },
                                 python = {
                                     analysis = {
-                                        -- Ignore all files for analysis to exclusively use Ruff for linting
-                                        ignore = {'*'},
-                                    }
+                                        ignore = {'*'}, -- gonna use a linter so don't use diagnostics
+                                        typeCheckingMode = 'off',
+                                        autoSearchPaths = true,
+                                        diagnosticMode = 'openFilesOnly',
+                                        useLibraryCodeForTypes = true,
+                                        extraPaths = 'src',
+                                        autoImportCompletions = true,
+                                    },
                                 }
                             }
                         }
@@ -105,8 +119,9 @@ return {
                             end,
                             init_options = {
                                 settings = {
-                                    -- Any extra CLI arguments for `ruff` go here.
-                                    args = {},
+                                    args = {
+                                        '--preview'
+                                    },
                                 }
                             }
                         }
@@ -120,5 +135,34 @@ return {
                 }
             })
         end
+    },
+    -- Linter
+    {
+        'mfussenegger/nvim-lint',
+        event = {
+            "BufReadPre",
+            "BufNewFile",
+            "BufWritePost"
+        },
+        config = function ()
+            local lint = require("lint")
+
+            lint.linters_by_ft = {
+                python = {'ruff'} -- , 'flake8'}
+            }
+
+            vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+                callback = function()
+
+                    -- try_lint without arguments runs the linters defined in `linters_by_ft`
+                    -- for the current filetype
+                    require("lint").try_lint()
+
+                    -- You can call `try_lint` with a linter name or a list of names to always
+                    -- run specific linters, independent of the `linters_by_ft` configuration
+                    -- require("lint").try_lint("cspell")
+                end,
+            })
+        end,
     }
 }

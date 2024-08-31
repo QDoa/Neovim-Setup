@@ -1,11 +1,6 @@
 return {
     {
         'tpope/vim-fugitive',
-        lazy = true,
-        opts = {},
-        -- keys = {
-        --     {'<leader>gs', ':Git<cr>', mode = 'n'},
-        -- },
     },
     {
         'lewis6991/gitsigns.nvim',
@@ -101,7 +96,6 @@ return {
 
             -- Only one of these is needed, not both.
             "nvim-telescope/telescope.nvim", -- optional
-            "ibhagwan/fzf-lua",              -- optional
         },
         config = true,
         keys = {

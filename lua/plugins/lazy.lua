@@ -28,6 +28,7 @@ return {
     {
         'puremourning/vimspector',
         lazy = true,
+        jpts = {},
         config = function ()
             vim.cmd([[
             " Vimspector
@@ -97,20 +98,58 @@ return {
             }
         end
     },
+    -- {
+    --     "folke/noice.nvim",
+    --     event = "VeryLazy",
+    --     opts = {
+    --         -- add any options here
+    --     },
+    --     dependencies = {
+    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    --         "MunifTanjim/nui.nvim",
+    --         -- OPTIONAL:
+    --         --   `nvim-notify` is only needed, if you want to use the notification view.
+    --         --   If not available, we use `mini` as the fallback
+    --         "rcarriga/nvim-notify",
+    --     }
+    -- }
     {
-        "folke/noice.nvim",
-        event = "VeryLazy",
-        opts = {
-            -- add any options here
-        },
-        dependencies = {
-            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-            "MunifTanjim/nui.nvim",
-            -- OPTIONAL:
-            --   `nvim-notify` is only needed, if you want to use the notification view.
-            --   If not available, we use `mini` as the fallback
-            "rcarriga/nvim-notify",
-        }
-    }
+        "vhyrro/luarocks.nvim",
+        priority = 1000, -- We'd like this plugin to load first out of the rest
+        config = true, -- This automatically runs `require("luarocks-nvim").setup()`
+    },
+    {
+        "nvim-neorg/neorg",
+        lazy = false,
+        version = "*",
+        config = function()
+            require('neorg').setup {
+                load = {
+                    ["core.defaults"] = {}, -- Loads default behaviour
+                    ["core.concealer"] = {}, -- Adds pretty icons to your documents
+                    ["core.completion"] = {
+                        config = {
+                            engine = "nvim-cmp",
+                        }
+                    },
+                    ["core.dirman"] = { -- Manages Neorg workspaces
+                        config = {
+                            workspaces = {
+                                notes = "~/notes",
+                            },
+                            default_workspace = "notes",
+                        },
+                    },
+                },
+            }
+            vim.wo.foldlevel = 99
+            vim.wo.conceallevel = 2
+        end,
+    },
+    {"tpope/vim-dadbod"},
+    {"kristijanhusak/vim-dadbod-ui"},
+    {"kristijanhusak/vim-dadbod-completion"},
+    {"preservim/tagbar"},
+    {"RRethy/vim-illuminate"},
 }
 
