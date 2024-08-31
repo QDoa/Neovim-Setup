@@ -1,4 +1,6 @@
 vim.g.mapleader = " "
+vim.g.maplocalleadet = ","
+
 vim.g.python3_host_prog = "~/.vimenv/bin/python"
 vim.g.python2_host_prog = "/usr/local/solido/virtualenvs/10.0.1/bin/python"
 
@@ -26,21 +28,18 @@ vim.opt.scrolloff = 8
 vim.opt.updatetime = 50
 vim.opt.colorcolumn = "120"
 
-function map(mode, shortcut, command)
-  vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
-end
-
-function nmap(shortcut, command)
-  map('n', shortcut, command)
-end
-
-function imap(shortcut, command)
-  map('i', shortcut, command)
-end
-
-nmap("<C-J>", "<C-W><C-J>")
-nmap("<C-K>", "<C-W><C-K>")
-nmap("<C-L>", "<C-W><C-L>")
-nmap("<C-H>", "<C-W><C-H>")
-
 vim.cmd("set clipboard+=unnamedplus")
+
+vim.cmd([[
+" my filetype file
+if exists("did_load_filetypes")
+    finish
+endif
+
+augroup filetypedetect
+    au! BufRead,BufNewFile *.lib                setfiletype liberty
+augroup END
+]])
+vim.cmd([[
+let g:tagbar_sort = 0
+]])
