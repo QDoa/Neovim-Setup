@@ -2,7 +2,6 @@ return {
     {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
-        lazy = true,
         config = false,
         init = function()
             -- Disable automatic setup, we are doing it manually
@@ -12,7 +11,6 @@ return {
     },
     {
         'williamboman/mason.nvim',
-        lazy = false,
         config = true,
     },
     -- Autocompletion
@@ -81,12 +79,20 @@ return {
             end)
 
             require('mason-lspconfig').setup({
-                ensure_installed = {'lua_ls', 'pyright', 'ruff_lsp', 'jsonls'},
+                ensure_installed = {'lua_ls', 'pyright', 'ruff', 'jsonls', 'clangd'},
                 handlers = {
                     -- this first function is the "default handler"
                     -- it applies to every language server without a "custom handler"
                     function(server_name)
                         require('lspconfig')[server_name].setup({})
+                    end,
+                    clangd = function ()
+                        require('lspconfig').clangd.setup{}
+                    end,
+                    arduino_language_server = function ()
+                        require('lspconfig').arduino_language_server.setup{
+                            filetypes = {'arduino', 'cpp', 'c'}
+                        }
                     end,
                     pyright = function()
                         require('lspconfig').pyright.setup{

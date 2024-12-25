@@ -12,10 +12,10 @@ return {
         end
     },
     {
-        'numToStr/Comment.nvim', opts = {}, lazy = true,
+        'numToStr/Comment.nvim', opts = {},
     },
     {
-        'windwp/nvim-autopairs', opts = {}, lazy = true,
+        'windwp/nvim-autopairs', opts = {},
     },
     {
         'nvim-lualine/lualine.nvim', opts = {},
@@ -24,27 +24,6 @@ return {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
         opts = {},
-    },
-    {
-        'puremourning/vimspector',
-        lazy = true,
-        jpts = {},
-        config = function ()
-            vim.cmd([[
-            " Vimspector
-            let g:vimspector_enable_mappings = 'HUMAN'
-
-            " for normal mode - the word under the cursor
-            nmap <Leader>di <Plug>VimspectorBalloonEval
-            " for visual mode, the visually selected text
-            xmap <Leader>di <Plug>VimspectorBalloonEval
-
-            nmap <LocalLeader><F11> <Plug>VimspectorUpFrame
-            nmap <LocalLeader><F12> <Plug>VimspectorDownFrame
-            nmap <Leader>B     <Plug>VimspectorBreakpoints
-            nmap <Leader>D     <Plug>VimspectorDisassemble
-            ]])
-        end
     },
     {
         "folke/todo-comments.nvim",
@@ -98,53 +77,20 @@ return {
             }
         end
     },
-    -- {
-    --     "folke/noice.nvim",
-    --     event = "VeryLazy",
-    --     opts = {
-    --         -- add any options here
-    --     },
-    --     dependencies = {
-    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    --         "MunifTanjim/nui.nvim",
-    --         -- OPTIONAL:
-    --         --   `nvim-notify` is only needed, if you want to use the notification view.
-    --         --   If not available, we use `mini` as the fallback
-    --         "rcarriga/nvim-notify",
-    --     }
-    -- }
     {
-        "vhyrro/luarocks.nvim",
-        priority = 1000, -- We'd like this plugin to load first out of the rest
-        config = true, -- This automatically runs `require("luarocks-nvim").setup()`
-    },
-    {
-        "nvim-neorg/neorg",
-        lazy = false,
-        version = "*",
-        config = function()
-            require('neorg').setup {
-                load = {
-                    ["core.defaults"] = {}, -- Loads default behaviour
-                    ["core.concealer"] = {}, -- Adds pretty icons to your documents
-                    ["core.completion"] = {
-                        config = {
-                            engine = "nvim-cmp",
-                        }
-                    },
-                    ["core.dirman"] = { -- Manages Neorg workspaces
-                        config = {
-                            workspaces = {
-                                notes = "~/notes",
-                            },
-                            default_workspace = "notes",
-                        },
-                    },
-                },
-            }
-            vim.wo.foldlevel = 99
-            vim.wo.conceallevel = 2
-        end,
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+            -- add any options here
+        },
+        dependencies = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
+        }
     },
     {"tpope/vim-dadbod"},
     {"kristijanhusak/vim-dadbod-ui"},

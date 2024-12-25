@@ -17,7 +17,7 @@ require("lazy").setup(
     "plugins"
 )
 
-require("keymap")
+-- require("keymap")
 
 local neogit = require('neogit')
 neogit.setup {}
