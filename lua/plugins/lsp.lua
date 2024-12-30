@@ -79,7 +79,7 @@ return {
             end)
 
             require('mason-lspconfig').setup({
-                ensure_installed = {'lua_ls', 'pyright', 'ruff_lsp', 'jsonls'},
+                ensure_installed = {'lua_ls', 'pyright', 'ruff', 'jsonls'},
                 handlers = {
                     -- this first function is the "default handler"
                     -- it applies to every language server without a "custom handler"
@@ -111,10 +111,11 @@ return {
                             }
                         }
                     end,
-                    ruff_lsp = function()
-                        require('lspconfig').ruff_lsp.setup {
+                    ruff = function()
+                        require('lspconfig').ruff.setup {
+                            trace = 'messages',
                             on_attach = function(client, bufnr)
-                                if client.name == 'ruff_lsp' then
+                                if client.name == 'ruff' then
                                     client.server_capabilities.hoverProvider = false
                                 end
                             end,
@@ -123,6 +124,8 @@ return {
                                     args = {
                                         '--preview'
                                     },
+                                    lineLength = 120,
+                                    log_level = 'debug',
                                 }
                             }
                         }
@@ -149,7 +152,7 @@ return {
             local lint = require("lint")
 
             lint.linters_by_ft = {
-                python = {'ruff'} -- , 'flake8'}
+                python = {'ruff'} -- , 'flake8'
             }
 
             vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -165,5 +168,6 @@ return {
                 end,
             })
         end,
-    }
+    },
+    { "folke/neodev.nvim", opts = {} }
 }
