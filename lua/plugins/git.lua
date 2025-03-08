@@ -2,12 +2,13 @@ return {
     {
         'tpope/vim-fugitive',
         -- lazy = false,
-        keys = {
-            {'<leader>gs', ':Git<cr>', mode = 'n'},
-        },
+        -- keys = {
+        --     {'<leader>gs', ':Git<cr>', mode = 'n'},
+        -- },
     },
     {
         'lewis6991/gitsigns.nvim',
+        lazy = false,
         opts = {
             signs = {
                 add          = { text = '│' },
@@ -98,6 +99,9 @@ return {
             "nvim-telescope/telescope.nvim", -- optional
         },
         config = true,
+        keys = {
+            {'<leader>gs', ':Neogit<cr>', mode = 'n'},
+        }
     },
     {
         "kdheepak/lazygit.nvim",

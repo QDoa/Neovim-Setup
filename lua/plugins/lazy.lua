@@ -68,14 +68,28 @@ return {
             )
         end
     },
+    {
+        'folke/trouble.nvim',
+        event = "VeryLazy",
+        config = function ()
+            require("trouble").setup {
+            }
+        end
+    },
     -- {
-    --     'folke/trouble.nvim',
+    --     "folke/noice.nvim",
     --     event = "VeryLazy",
-    --     dependencies  = 'nvim-tree/nvim-web-devicons',
-    --     config = function ()
-    --         require("trouble").setup {
-    --         }
-    --     end
+    --     opts = {
+    --         -- add any options here
+    --     },
+    --     dependencies = {
+    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    --         "MunifTanjim/nui.nvim",
+    --         -- OPTIONAL:
+    --         --   `nvim-notify` is only needed, if you want to use the notification view.
+    --         --   If not available, we use `mini` as the fallback
+    --         "rcarriga/nvim-notify",
+    --     }
     -- },
     -- {
     --     "vhyrro/luarocks.nvim",
@@ -111,9 +125,9 @@ return {
     --         vim.wo.conceallevel = 2
     --     end,
     -- },
-    -- {"tpope/vim-dadbod"},
-    -- {"kristijanhusak/vim-dadbod-ui"},
-    -- {"kristijanhusak/vim-dadbod-completion"},
+    {"tpope/vim-dadbod"},
+    {"kristijanhusak/vim-dadbod-ui"},
+    {"kristijanhusak/vim-dadbod-completion"},
     {"preservim/tagbar"},
     -- {
     --     "christoomey/vim-tmux-navigator",
