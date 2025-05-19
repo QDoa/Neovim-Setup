@@ -4,7 +4,6 @@ return {
     },
     {
         'lewis6991/gitsigns.nvim',
-        lazy = false,
         opts = {
             signs = {
                 add          = { text = '│' },
@@ -42,9 +41,6 @@ return {
                 relative = 'cursor',
                 row = 0,
                 col = 1
-            },
-            yadm = {
-                enable = false
             },
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns

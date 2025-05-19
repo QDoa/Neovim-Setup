@@ -38,6 +38,24 @@ return {
             --     return vim.json.decode(json.json_strip_comments(str))
             -- end
         end,
+        opts = function()
+            local dap = require("dap")
+            if not dap.adapters["codelldb"] then
+                require("dap").adapters["codelldb"] = {
+                    type = "server",
+                    host = "localhost",
+                    port = "${port}",
+                    executable = {
+                        command = "codelldb",
+                        args = {
+                            "--port",
+                            "${port}",
+                        }
+                    }
+
+                }
+            end
+        end,
     },
     {
         "theHamsta/nvim-dap-virtual-text",
@@ -71,7 +89,7 @@ return {
             'williamboman/mason.nvim',
             "mfussenegger/nvim-dap",
         },
-        ensure_installed = {"python"}
+        ensure_installed = {"python", "codelldb"}
     },
     {
         "nvim-neotest/nvim-nio"
