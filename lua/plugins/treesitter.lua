@@ -12,7 +12,7 @@ return {
                 highlight = { enable = true },
                 indent = { enable = true },
             })
-        end},
-
+        end
+    },
     {'nvim-treesitter/nvim-treesitter-context'},
 }

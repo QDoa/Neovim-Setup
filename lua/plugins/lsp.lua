@@ -13,57 +13,22 @@ return {
         'williamboman/mason.nvim',
         config = true,
     },
-    -- Autocompletion
-    {
-        'hrsh7th/nvim-cmp',
-        event = 'InsertEnter',
-        dependencies = {
-            {'L3MON4D3/LuaSnip'},
-        },
-        config = function()
-            -- Here is where you configure the autocompletion settings.
-            local lsp_zero = require('lsp-zero')
-            lsp_zero.extend_cmp()
-
-            -- And you can configure cmp even more, if you want to.
-            local cmp = require('cmp')
-            local cmp_action = lsp_zero.cmp_action()
-
-            cmp.setup({
-                formatting = lsp_zero.cmp_format({details = true}),
-                mapping = cmp.mapping.preset.insert({
-                    ['<CR>'] = cmp.mapping.confirm({select = true}),
-                    ['<C-Space>'] = cmp.mapping.complete(),
-                    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-d>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-                    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-                }),
-                snippet = {
-                    expand = function(args)
-                        require('luasnip').lsp_expand(args.body)
-                    end,
-                },
-                sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
-                    { name = "neorg" },
-                    { name = "path" },
-                    { name = "nvim_lua" },
-                    { name = "calc" },
-                    { name = "buffer" },
-                    { name = "emoji" },
-                })
-            })
-        end
-    },
     -- LSP
     {
         'neovim/nvim-lspconfig',
         cmd = {'LspInfo', 'LspInstall', 'LspStart'},
         event = {'BufReadPre', 'BufNewFile'},
         dependencies = {
-            {'hrsh7th/cmp-nvim-lsp'},
             {'williamboman/mason-lspconfig.nvim'},
+            {'saghen/blink.cmp'},
+            {
+                "SmiteshP/nvim-navbuddy",
+                dependencies = {
+                    "SmiteshP/nvim-navic",
+                    "MunifTanjim/nui.nvim"
+                },
+                opts = { lsp = { auto_attach = true } }
+            },
         },
         config = function()
             -- This is where all the LSP shenanigans will live
@@ -78,16 +43,28 @@ return {
                 lsp_zero.default_keymaps({buffer = bufnr})
             end)
 
+            local capabilities = require('blink.cmp').get_lsp_capabilities()
+            local navbuddy = require("nvim-navbuddy")
+
             require('mason-lspconfig').setup({
                 ensure_installed = {'lua_ls', 'pyright', 'ruff', 'jsonls'},
                 handlers = {
                     -- this first function is the "default handler"
                     -- it applies to every language server without a "custom handler"
                     function(server_name)
-                        require('lspconfig')[server_name].setup({})
+                        require('lspconfig')[server_name].setup({
+                            capabilities = capabilities,
+                            on_attach = function(client, bufnr)
+                                navbuddy.attach(client, bufnr)
+                            end
+                        })
                     end,
                     pyright = function()
                         require('lspconfig').pyright.setup{
+                            capabilities = capabilities,
+                            on_attach = function(client, bufnr)
+                                navbuddy.attach(client, bufnr)
+                            end,
                             settings = {
                                 pyright = {
                                     -- Using Ruff's import organizer
@@ -108,13 +85,15 @@ return {
                                     pythonPath=vim.fn.exepath('python'),
                                     stubPath="/usr/local/solido/configurations/10.0.1/lib/python2.7/site-packages/PySide2"
                                 }
-                            }
+                            },
                         }
                     end,
                     ruff = function()
                         require('lspconfig').ruff.setup {
+                            capabilities = capabilities,
                             trace = 'messages',
                             on_attach = function(client, bufnr)
+                                navbuddy.attach(client, bufnr)
                                 if client.name == 'ruff' then
                                     client.server_capabilities.hoverProvider = false
                                 end
@@ -134,7 +113,13 @@ return {
                     lua_ls = function()
                         -- (Optional) Configure lua language server for neovim
                         local lua_opts = lsp_zero.nvim_lua_ls()
-                        require('lspconfig').lua_ls.setup(lua_opts)
+                        lua_opts.capabilities = capabilities
+                        require('lspconfig').lua_ls.setup({
+                            lua_opts,
+                            on_attach = function(client, bufnr)
+                                navbuddy.attach(client, bufnr)
+                            end
+                        })
                     end,
                 }
             })
@@ -169,6 +154,57 @@ return {
             })
         end,
     },
-    { "folke/neodev.nvim", opts = {} },
-    { "github/copilot.vim"}
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+    { "github/copilot.vim"},
+    {
+        'saghen/blink.cmp',
+        dependencies = { 'rafamadriz/friendly-snippets' },
+
+        version = '*',
+
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
+        opts = {
+            keymap = { preset = "enter" },
+            appearance = {
+                nerd_font_variant = 'mono'
+            },
+
+            -- (Default) Only show the documentation popup when manually triggered
+            completion = {
+                documentation = { auto_show = false } ,
+                -- list = {
+                --     selection = {
+                --         preselect = false }
+                -- },
+            },
+
+            -- Default list of enabled providers defined so that you can extend it
+            -- elsewhere in your config, without redefining it, due to `opts_extend`
+            sources = {
+                default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+                providers = {
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        score_offset = 100,
+                    }
+                }
+            },
+
+            -- See the fuzzy documentation for more information
+            fuzzy = { implementation = "prefer_rust_with_warning" }
+        },
+        opts_extend = { "sources.default" }
+    }
 }

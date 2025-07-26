@@ -30,16 +30,16 @@ vim.opt.colorcolumn = "120"
 
 vim.cmd("set clipboard+=unnamedplus")
 
-vim.cmd([[
-" my filetype file
-if exists("did_load_filetypes")
-    finish
-endif
+--vim.cmd([[
+--" my filetype file
+--if exists("did_load_filetypes")
+--    finish
+--endif
 
-augroup filetypedetect
-    au! BufRead,BufNewFile *.lib                setfiletype liberty
-augroup END
-]])
-vim.cmd([[
-let g:tagbar_sort = 0
-]])
+--augroup filetypedetect
+--    au! BufRead,BufNewFile *.lib                setfiletype liberty
+--augroup END
+--]])
+--vim.cmd([[
+--let g:tagbar_sort = 0
+--]])
