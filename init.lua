@@ -31,3 +31,6 @@ require("keymap")
 
 local neogit = require('neogit')
 neogit.setup {}
+local treesitter_context = require("treesitter-context")
+-- treesitter_context.setup {}
+treesitter_context.enable()

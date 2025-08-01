@@ -51,11 +51,17 @@ return {
         opts = {
             options = {
                 diagnostic = 'nvim_lsp',
-            }
+            },
+            sections = {
+                lualine_c = {
+                    { "filename" },
+                    {
+                        "navic",
+                        color_correction = "dynamic",
+                    },
+                }
+            },
         },
-        sections = {
-            lualine_c = {'filename', 'navic' }
-        }
     },
     {
         'akinsho/bufferline.nvim',
@@ -64,6 +70,7 @@ return {
         opts = {
             options = {
                 diagnostic = "nvim_lsp",
+                mode = "tabs",
             }
         }
     },
@@ -78,7 +85,16 @@ return {
         "SmiteshP/nvim-navic",
         dependencies = { "neovim/nvim-lspconfig" },
         lazy = true,
-        opts = {},
+        opts = {
+            highlight = true,
+            depth = 5,
+            lsp = {
+                auto_attach = true,
+                preference = {
+                    "ruff",
+                }
+            }
+        }
     },
     {
         "folke/todo-comments.nvim",
