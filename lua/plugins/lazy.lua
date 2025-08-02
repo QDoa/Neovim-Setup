@@ -15,7 +15,79 @@ return {
         'numToStr/Comment.nvim', opts = {},
     },
     {
-        'nvim-lualine/lualine.nvim', opts = {},
+        'saghen/blink.pairs',
+        version = '*', -- (recommended) only required with prebuilt binaries
+
+        -- download prebuilt binaries from github releases
+        dependencies = 'saghen/blink.download',
+
+        --- @module 'blink.pairs'
+        --- @type blink.pairs.Config
+        opts = {
+            mappings = {
+                -- you can call require("blink.pairs.mappings").enable() and require("blink.pairs.mappings").disable() to enable/disable mappings at runtime
+                enabled = true,
+                -- see the defaults: https://github.com/Saghen/blink.pairs/blob/main/lua/blink/pairs/config/mappings.lua#L10
+                pairs = {},
+            },
+            highlights = {
+                enabled = true,
+                groups = {
+                    'BlinkPairsOrange',
+                    'BlinkPairsPurple',
+                    'BlinkPairsBlue',
+                },
+                matchparen = {
+                    enabled = true,
+                    group = 'MatchParen',
+                },
+            },
+            debug = false,
+        }
+    },
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        opts = {
+            options = {
+                diagnostic = 'nvim_lsp',
+            },
+            sections = {
+                lualine_c = {
+                    { "filename" },
+                    {
+                        "navic",
+                        color_correction = "dynamic",
+                    },
+                }
+            },
+        },
+    },
+    {
+        'akinsho/bufferline.nvim',
+        version = "*",
+        dependencies = 'nvim-tree/nvim-web-devicons',
+        opts = {
+            options = {
+                diagnostic = "nvim_lsp",
+                mode = "tabs",
+            }
+        }
+    },
+    {
+        "SmiteshP/nvim-navic",
+        dependencies = { "neovim/nvim-lspconfig" },
+        lazy = true,
+        opts = {
+            highlight = true,
+            depth = 5,
+            lsp = {
+                auto_attach = true,
+                preference = {
+                    "ruff",
+                }
+            }
+        }
     },
     {
         "lukas-reineke/indent-blankline.nvim",
@@ -49,20 +121,6 @@ return {
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to use defaults
             })
-        end
-    },
-    {
-        "windwp/nvim-autopairs",
-        opt = {},
-        event = "InsertEnter",
-        config = function()
-            require("nvim-autopairs").setup({})
-            local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-            local cmp = require('cmp')
-            cmp.event:on(
-                'confirm_done',
-                cmp_autopairs.on_confirm_done()
-            )
         end
     },
     {
