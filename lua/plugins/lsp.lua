@@ -57,6 +57,7 @@ vim.lsp.config('cssls', {
 
 vim.lsp.config('clangd', {
     capabilities = capabilities,
+    cmd = { "clangd", "--background-index", "--clang-tidy" },
 })
 
 vim.lsp.config('arduino_language_server', {
