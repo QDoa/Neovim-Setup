@@ -1,4 +1,5 @@
 require("setting")
+require("keymap")
 
 vim.g.python3_host_prog = "~/.vimenv/bin/python"
 vim.g.python2_host_prog = "/usr/local/solido/virtualenvs/10.0.1/bin/python"
@@ -27,10 +28,9 @@ require("config.lazy")
 --     }
 -- })
 
-require("keymap")
 
 local neogit = require('neogit')
 neogit.setup {}
 local treesitter_context = require("treesitter-context")
--- treesitter_context.setup {}
-treesitter_context.enable()
+treesitter_context.setup {}
+-- treesitter_context.enable()

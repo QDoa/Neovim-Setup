@@ -20,17 +20,14 @@ vim.lsp.config('ruff', {
             },
             -- pythonPath="/usr/local/solido/virtualenvs/10.0.1/bin/python",
             pythonPath=vim.fn.exepath('python'),
-            stubPath="/usr/local/solido/configurations/10.0.1/lib/python2.7/site-packages/PySide2"
+            -- stubPath="/usr/local/solido/configurations/10.0.1/lib/python2.7/site-packages/PySide2"
         }
     },
-    on_attach = on_attach,
-
 })
 
 vim.lsp.config('ruff', {
     capabilities = capabilities,
     trace = 'messages',
-    on_attach = on_attach,
     init_options = {
         settings = {
             args = {
@@ -44,12 +41,21 @@ vim.lsp.config('ruff', {
 
 vim.lsp.config('lua_ls', {
     capabilities = capabilities,
-    on_attach = on_attach,
+})
+
+vim.lsp.config('clangd', {
+    capabilities = capabilities,
+    cmd = { "clangd", "--background-index", "--clang-tidy" }
+})
+
+vim.lsp.config('*', {
+    capabilities = capabilities,
 })
 
 vim.lsp.enable('ruff')
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('pyright')
+vim.lsp.enable('clangd')
 
 return {
     {

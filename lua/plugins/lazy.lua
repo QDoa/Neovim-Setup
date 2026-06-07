@@ -118,7 +118,6 @@ return {
     {"tpope/vim-dadbod"},
     {"kristijanhusak/vim-dadbod-ui"},
     {"kristijanhusak/vim-dadbod-completion"},
-    -- {"preservim/tagbar"},
     {"RRethy/vim-illuminate"},
     {
         "hedyhli/outline.nvim",
@@ -133,96 +132,3 @@ return {
         end,
     },
 }
--- {
---     "kylechui/nvim-surround",
---     version = "*", -- Use for stability; omit to use `main` branch for the latest features
---     event = "VeryLazy",
---     config = function()
---         require("nvim-surround").setup({
-    --             -- Configuration here, or leave empty to use defaults
-    --         })
-    --     end
-    -- },
-    -- {
-    --     'folke/trouble.nvim',
-    --     event = "VeryLazy",
-    --     config = function ()
-                    --         require("trouble").setup {
-                        --         }
-                        --     end
-                        -- },
-                        -- {
-                            --     "folke/noice.nvim",
-                            --     event = "VeryLazy",
-                            --     opts = {
-                                --         -- add any options here
-                                --     },
-                                --     dependencies = {
-                                    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-                                    --         "MunifTanjim/nui.nvim",
-                                    --         -- OPTIONAL:
-                                    --         --   `nvim-notify` is only needed, if you want to use the notification view.
-                                    --         --   If not available, we use `mini` as the fallback
-                                    --         "rcarriga/nvim-notify",
-                                    --     }
-                                    -- },
-                                    -- {
-                                        --     "vhyrro/luarocks.nvim",
-                                        --     priority = 1000, -- We'd like this plugin to load first out of the rest
-                                        --     config = true, -- This automatically runs `require("luarocks-nvim").setup()`
-                                        -- },
-                                        -- {
-                                            --     "nvim-neorg/neorg",
-                                            --     event = "VeryLazy",
-                                            --     -- lazy = false,
-                                            --     version = "*",
-                                            --     config = function()
-                                                --         require('neorg').setup {
-                                                    --             load = {
-                                                        --                 ["core.defaults"] = {}, -- Loads default behaviour
-                                                        --                 ["core.concealer"] = {}, -- Adds pretty icons to your documents
-                                                        --                 ["core.completion"] = {
-                                                            --                     config = {
-                                                                --                         engine = "nvim-cmp",
-                                                                --                     }
-                                                                --                 },
-                                                                --                 ["core.dirman"] = { -- Manages Neorg workspaces
-                                                                    --                     config = {
-                                                                        --                         workspaces = {
-                                                                            --                             notes = "~/notes",
-                                                                            --                         },
-                                                                            --                         default_workspace = "notes",
-                                                                            --                     },
-                                                                            --                 },
-                                                                            --             },
-                                                                            --         }
-                                                                            --         vim.wo.foldlevel = 99
-                                                                            --         vim.wo.conceallevel = 2
-                                                                            --     end,
-                                                                            -- },
-                                                                            -- {
-                                                                                --     "christoomey/vim-tmux-navigator",
-                                                                                --     cmd = {
-                                                                                    --         "TmuxNavigateLeft",
-                                                                                    --         "TmuxNavigateDown",
-                                                                                    --         "TmuxNavigateUp",
-                                                                                    --         "TmuxNavigateRight",
-                                                                                    --         "TmuxNavigatePrevious",
-                                                                                    --     },
-                                                                                    --     keys = {
-                                                                                        --         { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-                                                                                        --         { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-                                                                                        --         { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-                                                                                        --         { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-                                                                                        --         { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-                                                                                        --     },
-                                                                                        -- }
-                                                                                        -- {
-                                                                                            --     "dstein64/vim-startuptime",
-                                                                                            --     -- lazy-load on a command
-                                                                                            --     cmd = "StartupTime",
-                                                                                            --     -- init is called during startup. Configuration for vim plugins typically should be set in an init function
-                                                                                            --     init = function()
-                                                                                                --         vim.g.startuptime_tries = 10
-                                                                                                --     end,
-                                                                                                -- },
